@@ -11,14 +11,12 @@
   />
 
   <style>
-    /* RESET */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; }
-
     body {
       font-family: Arial, sans-serif;
       background:#eaeded;
       color:#111;
+      min-height:100vh;
       display:flex;
       flex-direction:column;
     }
@@ -26,26 +24,10 @@
     a { text-decoration:none; color:inherit; }
     .hidden { display:none !important; }
 
-    /* LAYOUT */
-    #page { display:flex; flex-direction:column; min-height:100vh; }
-    main { max-width:1150px; width:100%; margin:0 auto; padding:1rem 1rem 2rem; flex:1; }
-
-    /* TRICOLOUR BAR */
-    .tri-bar {
-      width:100%;
-      height:4px;
-      background: linear-gradient(to right,
-        #ff9933 0%, #ff9933 33.33%,
-        #ffffff 33.33%, #ffffff 66.66%,
-        #138808 66.66%, #138808 100%);
-    }
-
-    /* HEADER */
     header {
       background:#131921;
       color:#fff;
-      padding:0.6rem 1rem;
-      border-bottom:2px solid #232f3e;
+      padding:0.7rem 1rem;
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -55,160 +37,174 @@
     .logo {
       display:flex;
       align-items:center;
-      gap:0.5rem;
+      gap:0.4rem;
       cursor:pointer;
     }
-    .logo img { height:32px; border-radius:4px; }
-    .logo-title { font-weight:700; font-size:1.1rem; }
-    .logo-sub { font-size:0.75rem; color:#ddd; }
+    .logo img { height:34px; border-radius:4px; }
+    .logo-title { font-size:1.15rem; font-weight:700; }
 
     .nav-right {
       display:flex;
-      gap:0.4rem;
+      gap:0.6rem;
       flex-wrap:wrap;
     }
     .nav-link {
-      padding:0.35rem 0.7rem;
-      font-size:0.85rem;
+      padding:0.4rem 0.8rem;
       border-radius:4px;
       cursor:pointer;
+      font-size:0.85rem;
+      color:#fff;
     }
     .nav-link:hover { background:#232f3e; }
 
-    /* SEARCH BAR */
     .search-bar-wrap {
-      width:100%;
       background:#232f3e;
-      padding:0.4rem 1rem;
-      border-bottom:3px solid #ff9933;
+      padding:0.5rem 1rem;
       display:flex;
       justify-content:center;
     }
-
-    .search-inner {
-      max-width:1150px;
-      width:100%;
-      display:flex;
-      gap:0.3rem;
-    }
-
+    .search-inner { max-width:1150px; width:100%; display:flex; gap:0.3rem; }
     .search-input {
       flex:1;
-      padding:0.45rem 0.6rem;
-      font-size:0.85rem;
-      border-radius:4px 0 0 4px;
+      padding:0.5rem;
       border:none;
+      border-radius:4px 0 0 4px;
     }
-
     .search-btn {
-      padding:0.45rem 0.8rem;
+      padding:0.5rem 1rem;
       border:none;
       background:#febd69;
-      font-size:0.85rem;
-      cursor:pointer;
       font-weight:600;
       border-radius:0 4px 4px 0;
+      cursor:pointer;
     }
 
-    .search-btn:hover { background:#f3a847; }
+    main { flex:1; max-width:1150px; margin:0 auto; padding:1rem; }
 
-    /* CATEGORY BAR */
+    .section-title { font-size:1.3rem; margin-bottom:0.4rem; }
+    .section-sub { font-size:0.85rem; margin-bottom:1rem; color:#555; }
+
     .category-bar {
-      margin-top:1rem;
       display:flex;
       gap:0.5rem;
       flex-wrap:wrap;
+      margin-bottom:1rem;
     }
-
     .cat-btn {
       padding:0.35rem 0.9rem;
       border-radius:999px;
       border:1px solid #ccc;
-      background:#f3f3f3;
       cursor:pointer;
-      font-size:0.8rem;
+      font-size:0.85rem;
+      background:#f5f5f5;
     }
-    .cat-btn.active {
-      background:#ffd814;
-      border-color:#fcd200;
-    }
-
-    /* PRODUCT GRID */
-    .section-title { font-size:1.3rem; margin-bottom:0.35rem; }
-    .section-sub { font-size:0.85rem; color:#555; margin-bottom:0.75rem; }
+    .cat-btn.active { background:#ffd814; border-color:#fcd200; }
 
     .product-grid {
       display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+      grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
       gap:1rem;
     }
 
-    /* PRODUCT CARD */
     .card {
-      background:#fff;
+      background:white;
       border-radius:4px;
       padding:0.75rem;
-      box-shadow:0 1px 3px rgba(0,0,0,0.15);
       display:flex;
       flex-direction:column;
       justify-content:space-between;
-      height:100%;
+      box-shadow:0 1px 3px rgba(0,0,0,0.15);
     }
 
     .card-img-wrap {
       width:100%;
-      height:140px;
-      background:#f9f9f9;
+      height:150px;
       border:1px solid #eee;
+      background:#fafafa;
       display:flex;
       align-items:center;
       justify-content:center;
-      margin-bottom:0.6rem;
+      margin-bottom:0.7rem;
       overflow:hidden;
     }
-
     .card-img-wrap img {
       max-height:100%;
       object-fit:contain;
-      display:block;
     }
 
-    .card-title { font-size:1rem; margin-bottom:0.15rem; }
-    .sku-small { font-size:0.75rem; color:#777; margin-bottom:0.25rem; }
-    .price { font-size:1rem; font-weight:700; color:#b12704; margin-bottom:0.25rem; }
-    .desc { font-size:0.85rem; color:#555; margin-bottom:0.35rem; }
-    .status { font-size:0.8rem; font-weight:600; margin-bottom:0.6rem; }
+    .card-title { font-size:1rem; margin-bottom:0.25rem; }
+    .sku-small { font-size:0.75rem; color:#777; margin-bottom:0.3rem; }
+    .price { color:#b12704; font-size:1rem; font-weight:700; margin-bottom:0.3rem; }
+    .desc { font-size:0.85rem; margin-bottom:0.4rem; color:#555; }
+
+    .status { font-weight:700; margin-bottom:0.7rem; }
     .status.in { color:#007600; }
     .status.out { color:#b12704; }
 
     .btn {
-      padding:0.5rem;
+      border:none;
+      padding:0.55rem;
       border-radius:4px;
       cursor:pointer;
-      text-align:center;
-      font-size:0.9rem;
       font-weight:600;
-      border:none;
+      text-align:center;
     }
-
     .btn-primary { background:#ffd814; border:1px solid #fcd200; }
-    .btn-primary:hover { background:#f7ca00; }
     .btn-disabled { background:#ddd; cursor:not-allowed; }
 
-    /* CHECKOUT PAGE */
-    .sku-big {
-      font-size:1.8rem;
-      font-weight:900;
-      margin:0.8rem 0;
-      text-align:center;
+    .box {
+      background:white;
+      padding:1rem;
+      border-radius:4px;
+      box-shadow:0 1px 3px rgba(0,0,0,0.15);
+      margin-bottom:1.2rem;
     }
 
-    .box {
-      background:#fff;
-      border-radius:4px;
-      padding:1rem;
-      margin-bottom:1rem;
-      box-shadow:0 1px 3px rgba(0,0,0,0.15);
+    .sku-big {
+      text-align:center;
+      font-size:1.9rem;
+      font-weight:900;
+      margin:0.7rem 0;
+    }
+
+    /* === FOOTER (NEW) === */
+    .footer {
+      background:#131921;
+      color:#ddd;
+      padding:2.2rem 1rem;
+      margin-top:2rem;
+    }
+
+    .footer-inner {
+      max-width:1150px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:2rem;
+    }
+
+    .footer-col h3, .footer-col h4 {
+      color:#fff;
+      margin-bottom:0.7rem;
+    }
+
+    .footer-col p { line-height:1.4rem; font-size:0.85rem; }
+
+    .footer-col ul {
+      padding-left:0;
+      list-style:none;
+    }
+
+    .footer-col ul li { margin-bottom:0.4rem; }
+    .footer-col ul li a { color:#ddd; font-size:0.85rem; }
+    .footer-col ul li a:hover { color:#ffd814; }
+
+    .footer-bottom {
+      margin-top:2rem;
+      text-align:center;
+      color:#ccc;
+      font-size:0.85rem;
+      line-height:1.5rem;
     }
 
     iframe { border:1px solid #ccc; border-radius:6px; }
@@ -216,213 +212,232 @@
 </head>
 
 <body>
-  <div id="page">
-    <div class="tri-bar"></div>
-
-    <header>
-      <div class="logo" id="navLogo">
-        <img src="https://i.ibb.co/TBfsBjkr/Chat-GPT-Image-Nov-29-2025-08-47-21-PM.png">
-        <div>
-          <div class="logo-title">AISRI DIRECT</div>
-          <div class="logo-sub">Direct. Fast. Simple.</div>
-        </div>
-      </div>
-
-      <div class="nav-right">
-        <div class="nav-link" data-page="homePage">Home</div>
-        <div class="nav-link" data-page="orderPage" id="navCheckout">Checkout</div>
-        <div class="nav-link" data-page="communityPage">Community</div>
-        <div class="nav-link" data-page="trackPage">Track Order</div>
-        <div class="nav-link" data-page="returnsPage">Returns</div>
-        <div class="nav-link" data-page="contactPage">Contact</div>
-        <div class="nav-link" data-page="adminPage">Admin</div>
-      </div>
-    </header>
-
-    <div class="search-bar-wrap">
-      <div class="search-inner">
-        <input id="searchInput" class="search-input" placeholder="Search AISRI DIRECT products..." />
-        <button id="searchBtn" class="search-btn">Search</button>
+  <header>
+    <div class="logo" onclick="showPage('homePage')">
+      <img src="https://i.ibb.co/TBfsBjkr/Chat-GPT-Image-Nov-29-2025-08-47-21-PM.png">
+      <div>
+        <div class="logo-title">AISRI DIRECT</div>
+        <div style="font-size:0.75rem;color:#ccc;">Direct. Fast. Simple.</div>
       </div>
     </div>
 
-    <main>
+    <div class="nav-right">
+      <div class="nav-link" data-page="homePage">Home</div>
+      <div class="nav-link" data-page="orderPage">Checkout</div>
+      <div class="nav-link" data-page="communityPage">Community</div>
+      <div class="nav-link" data-page="trackPage">Track Order</div>
+      <div class="nav-link" data-page="returnsPage">Returns</div>
+      <div class="nav-link" data-page="contactPage">Contact</div>
+      <div class="nav-link" data-page="adminPage">Admin</div>
+    </div>
+  </header>
 
-      <!-- HOME PAGE -->
-      <section id="homePage">
-        <h1 class="section-title">Products</h1>
-        <p class="section-sub">
-          Amazon-style browsing with an Indian touch. Use categories and search to find what you need,
-          then click <strong>Place Order</strong> for a single-product UPI checkout.
+  <div class="search-bar-wrap">
+    <div class="search-inner">
+      <input id="searchInput" class="search-input" placeholder="Search AISRI DIRECT products..." />
+      <button id="searchBtn" class="search-btn">Search</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- HOME PAGE -->
+    <section id="homePage">
+      <h1 class="section-title">Products</h1>
+      <p class="section-sub">
+        Browse products and place a single-item direct shipping order through UPI.
+      </p>
+
+      <div id="categoryBar" class="category-bar">
+        <button class="cat-btn active" data-cat="all">All</button>
+        <button class="cat-btn" data-cat="home">Home & Kitchen</button>
+        <button class="cat-btn" data-cat="electronics">Electronics</button>
+        <button class="cat-btn" data-cat="fashion">Fashion</button>
+        <button class="cat-btn" data-cat="food">Food</button>
+        <button class="cat-btn" data-cat="bottles">Bottles</button>
+        <button class="cat-btn" data-cat="boxes">Boxes</button>
+        <button class="cat-btn" data-cat="skincare">Skincare</button>
+        <button class="cat-btn" data-cat="offers">Offers</button>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <!-- CHECKOUT STEP 1 -->
+    <section id="orderPage" class="hidden">
+      <h1 class="section-title">Checkout – Step 1</h1>
+      <p class="section-sub">
+        AISRI DIRECT supports <strong>one product per order</strong>.  
+        Note your SKU before moving to the final checkout form.
+      </p>
+
+      <div class="box">
+        <div id="orderProductName" style="font-weight:700;font-size:1.1rem;"></div>
+        <div id="orderProductPrice" style="color:#b12704;font-weight:700;margin-top:0.4rem;"></div>
+        <div id="orderProductDesc" style="margin:0.4rem 0;color:#444;"></div>
+
+        <p id="noProductMessage" class="hidden" style="color:#b12704;font-size:0.9rem;">
+          No product selected. Return to Home → click “Place Order”.
         </p>
 
-        <div class="category-bar" id="categoryBar">
-          <button class="cat-btn active" data-cat="all">All</button>
-          <button class="cat-btn" data-cat="home">Home & Kitchen</button>
-          <button class="cat-btn" data-cat="electronics">Electronics</button>
-          <button class="cat-btn" data-cat="fashion">Fashion</button>
-          <button class="cat-btn" data-cat="food">Food & Snacks</button>
-          <button class="cat-btn" data-cat="bottles">Bottles</button>
-          <button class="cat-btn" data-cat="boxes">Boxes / Tiffins</button>
-          <button class="cat-btn" data-cat="skincare">Skincare & Makeup</button>
-          <button class="cat-btn" data-cat="offers">Offers</button>
-        </div>
+        <h3 style="margin-top:1rem;">Your SKU Code</h3>
+        <div id="orderSkuBig" class="sku-big">SKU-XXXX</div>
+      </div>
 
-        <div class="products-header">
-          <h2 id="productsTitle">All products</h2>
-          <span id="resultCount"></span>
-        </div>
+      <div class="box">
+        <h3>Step 2 – Continue to Checkout Form</h3>
+        <ul style="margin-left:1rem;margin-top:0.5rem;">
+          <li>Enter your personal details</li>
+          <li>Enter shipping address</li>
+          <li>Enter SKU code</li>
+          <li>Provide UPI Transaction ID</li>
+        </ul>
 
-        <div id="productGrid" class="product-grid"></div>
-      </section>
-                <!-- CHECKOUT STEP 1 -->
-      <section id="orderPage" class="hidden">
-        <h1 class="section-title">Checkout – Step 1</h1>
-        <p class="section-sub">
-          AISRI DIRECT supports <strong>one product per order</strong>.
-          Select a product from the Home page and note your SKU before continuing.
+        <button id="showFormBtn" class="btn btn-primary" style="margin-top:0.7rem;">
+          Continue to Checkout Form
+        </button>
+      </div>
+    </section>
+
+    <!-- CHECKOUT FORM PAGE -->
+    <section id="checkoutFormPage" class="hidden">
+      <h1 class="section-title">Checkout Form</h1>
+      <p class="section-sub">Complete final checkout using the embedded form below:</p>
+
+      <div class="box">
+        <iframe id="orderFormFrame" style="width:100%;height:750px;" src=""></iframe>
+      </div>
+    </section>
+
+    <!-- COMMUNITY PAGE -->
+    <section id="communityPage" class="hidden">
+      <h1 class="section-title">Community</h1>
+      <p class="section-sub">Share your thoughts and feedback with the AISRI DIRECT community.</p>
+      <iframe id="padletFrame" style="width:100%;height:600px;"></iframe>
+    </section>
+
+    <!-- TRACK ORDER -->
+    <section id="trackPage" class="hidden">
+      <h1 class="section-title">Track Order</h1>
+      <p class="section-sub">Track your shipment using India Post.</p>
+
+      <img id="trackThumbImg" style="max-width:600px;border-radius:6px;margin-bottom:1rem;">
+
+      <a href="https://www.indiapost.gov.in/_layouts/15/DOP.Portal.Tracking/TrackConsignment.aspx"
+         target="_blank">
+        <button class="btn btn-primary">Open India Post Tracking</button>
+      </a>
+    </section>
+
+    <!-- RETURNS PAGE -->
+    <section id="returnsPage" class="hidden">
+      <h1 class="section-title">Returns & Replacement</h1>
+      <iframe id="returnsFormFrame" style="width:100%;height:650px;"></iframe>
+    </section>
+
+    <!-- CONTACT PAGE -->
+    <section id="contactPage" class="hidden">
+      <h1 class="section-title">Contact & Support</h1>
+
+      <div class="box">
+        <h3>About AISRI DIRECT</h3>
+        <p>
+          AISRI DIRECT is a direct-shipping platform based in Chennai.  
+          We use SKU-based ordering and UPI payments for simple, fast delivery.
         </p>
+      </div>
 
-        <div class="box">
-          <div id="orderProductName" class="order-product-name"></div>
-          <div id="orderProductPrice" class="order-price"></div>
-          <div id="orderProductDesc" class="order-desc"></div>
+      <div class="box">
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <div style="flex:1;">
+            <p><strong>Phone/WhatsApp:</strong><br>9360105132<br>6380693278</p>
+            <p><strong>Email:</strong><br>
+              <a href="mailto:aisridirect001@gmail.com">aisridirect001@gmail.com</a><br>
+              <a href="mailto:aisridirect001@yahoo.com">aisridirect001@yahoo.com</a>
+            </p>
+          </div>
 
-          <p id="noProductMessage" class="hidden" style="color:#b12704; font-size:0.9rem;">
-            No product selected. Return to the Home page and click <strong>Place Order</strong>.
-          </p>
-
-          <h3>Your SKU Code</h3>
-          <div id="orderSkuBig" class="sku-big">SKU-XXXX</div>
-        </div>
-
-        <div class="box">
-          <h3>Step 2 – Continue to Checkout Form</h3>
-          <p class="simple-text">The final checkout form includes:</p>
-          <ul class="small-muted" style="margin-left:1rem;">
-            <li>UPI QR Code</li>
-            <li>Name, phone, email</li>
-            <li>Full address</li>
-            <li>SKU code</li>
-            <li>UPI transaction details</li>
-          </ul>
-
-          <button id="showFormBtn" class="btn btn-primary" style="margin-top:0.5rem;">
-            Continue to Checkout Form
-          </button>
-        </div>
-      </section>
-
-      <!-- CHECKOUT FORM PAGE -->
-      <section id="checkoutFormPage" class="hidden">
-        <h1 class="section-title">Checkout Form</h1>
-        <p class="section-sub">Final step: Fill your details and payment info.</p>
-
-        <div class="box">
-          <iframe id="orderFormFrame" style="width:100%; height:750px;" src=""></iframe>
-        </div>
-      </section>
-
-      <!-- COMMUNITY -->
-      <section id="communityPage" class="hidden">
-        <h1 class="section-title">Community</h1>
-        <p class="section-sub">Share ideas, suggestions, and product experiences.</p>
-        <iframe id="padletFrame" style="width:100%; height:600px;"></iframe>
-      </section>
-
-      <!-- TRACK ORDER -->
-      <section id="trackPage" class="hidden">
-        <h1 class="section-title">Track Order</h1>
-        <p class="section-sub">
-          Use your India Post tracking number to check your shipment status.
-        </p>
-
-        <img id="trackThumbImg" style="max-width:600px; border-radius:6px; margin-bottom:1rem;">
-
-        <a href="https://www.indiapost.gov.in/_layouts/15/DOP.Portal.Tracking/TrackConsignment.aspx"
-           target="_blank">
-          <button class="btn btn-primary">Open India Post Tracking</button>
-        </a>
-      </section>
-
-      <!-- RETURNS -->
-      <section id="returnsPage" class="hidden">
-        <h1 class="section-title">Returns & Replacement</h1>
-        <iframe id="returnsFormFrame" style="width:100%; height:650px;"></iframe>
-      </section>
-
-      <!-- CONTACT -->
-      <section id="contactPage" class="hidden">
-        <h1 class="section-title">Contact & Support</h1>
-        <div class="box">
-          <h3>About AISRI DIRECT</h3>
-          <p>
-            AISRI DIRECT is a community-driven direct shipping platform based in
-            <strong>Chennai, Tamil Nadu</strong>.  
-            We connect verified suppliers directly to customers, using fast
-            <strong>UPI checkout</strong> and a simple <strong>SKU-based</strong> system.
-          </p>
-        </div>
-
-        <div class="box">
-          <div class="contact-grid">
-            <div>
-              <p><strong>Phone / WhatsApp:</strong><br/> 9360105132<br/> 6380693278</p>
-              <p><strong>Email:</strong><br/>
-                <a href="mailto:aisridirect001@gmail.com">aisridirect001@gmail.com</a><br/>
-                <a href="mailto:aisridirect001@yahoo.com">aisridirect001@yahoo.com</a>
-              </p>
-            </div>
-
-            <div>
-              <p>Submit a support ticket here:</p>
-              <iframe id="supportFormFrame" style="width:100%; height:420px;"></iframe>
-            </div>
+          <div style="flex:1;">
+            <p>Support Form:</p>
+            <iframe id="supportFormFrame" style="width:100%;height:420px;"></iframe>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ADMIN -->
-      <section id="adminPage" class="hidden">
-        <h1 class="section-title">Admin – Manage Products</h1>
-        <div class="box">
-          <p>All products come from <code>products.json</code> in the GitHub repo.</p>
-          <pre style="background:#f6f6f6; padding:1rem;">
+    <!-- ADMIN PAGE -->
+    <section id="adminPage" class="hidden">
+      <h1 class="section-title">Admin – Manage Products</h1>
+      <div class="box">
+        <p>Products are loaded from <strong>products.json</strong> in your GitHub repo.</p>
+        <pre style="background:#f4f4f4;padding:1rem;border-radius:4px;">
 {
   "id": "1000",
-  "name": "Sample Item",
+  "name": "Sample",
   "price": 100,
   "category": "bottles",
   "statusText": "In Stock",
   "description": "Sample description",
-  "image": "https://example.com/image.jpg"
+  "image": ""
 }
-          </pre>
-          <p>
-            After editing <code>products.json</code>, commit & push —
-            Netlify redeploys automatically.
-          </p>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="footer-top-line"></div>
-      <div class="footer-text-main">
-        Made with love, from <span>Chennai</span> 🇮🇳
+        </pre>
+        <p>Push changes → Netlify auto-updates.</p>
       </div>
-      <div class="footer-text-sub">
-        AISRI DIRECT • Direct Shipping • UPI Checkout • Community-Driven
-      </div>
-    </footer>
-  </div>
+    </section>
 
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+
+      <div class="footer-col">
+        <h3>AISRI DIRECT</h3>
+        <p>Direct shipping from trusted suppliers. Simple UPI checkout. SKU-based orders.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a onclick="showPage('homePage')">Home</a></li>
+          <li><a onclick="showPage('orderPage')">Checkout</a></li>
+          <li><a onclick="showPage('communityPage')">Community</a></li>
+          <li><a onclick="showPage('trackPage')">Track Order</a></li>
+          <li><a onclick="showPage('returnsPage')">Returns</a></li>
+          <li><a onclick="showPage('contactPage')">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>📞 9360105132<br>📞 6380693278</p>
+        <p>
+          ✉️ <a href="mailto:aisridirect001@gmail.com">aisridirect001@gmail.com</a><br>
+          ✉️ <a href="mailto:aisridirect001@yahoo.com">aisridirect001@yahoo.com</a>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <p>
+          <a href="#">Instagram</a><br>
+          <a href="#">YouTube</a><br>
+          <a href="#">Facebook</a>
+        </p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © AISRI DIRECT — Made with ❤️ in Chennai
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
   <script>
-    /*********************
-     CONFIG – CHANGE THESE
-    **********************/
+    /* CONFIG */
     const FORM_URL =
-      "https://docs.google.com/forms/d/YOUR_FORM_ID/viewform?embedded=true";
+      "https://docs.google.com/forms/d/YOUR_CHECKOUT_FORM_ID/viewform?embedded=true";
     const PADLET_EMBED_URL =
       "https://padlet.com/YOUR_PADLET_EMBED";
     const SUPPORT_FORM_URL =
@@ -432,202 +447,151 @@
     const TRACK_THUMB_URL =
       "https://via.placeholder.com/600x350?text=Track+Order";
 
-    /*********************
-      STATE
-    **********************/
+    /* STATE */
     let allProducts = [];
     let filteredProducts = [];
     let activeCategory = "all";
-    let searchQuery = "";
     let selectedProduct = null;
+    let searchQuery = "";
 
-    /*********************
-      NAVIGATION
-    **********************/
-    const pages = {
-      homePage: homePage,
-      orderPage: orderPage,
-      checkoutFormPage: checkoutFormPage,
-      communityPage: communityPage,
-      trackPage: trackPage,
-      returnsPage: returnsPage,
-      contactPage: contactPage,
-      adminPage: adminPage,
-    };
-
-    function showPage(pageId) {
-      Object.values(pages).forEach(p => p.classList.add("hidden"));
-      pages[pageId].classList.remove("hidden");
+    /* NAVIGATION */
+    function showPage(id) {
+      document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+      document.getElementById(id).classList.remove("hidden");
       scrollTo(0,0);
+
+      if(id==="communityPage") padletFrame.src = PADLET_EMBED_URL;
+      if(id==="returnsPage") returnsFormFrame.src = RETURN_FORM_URL;
+      if(id==="contactPage") supportFormFrame.src = SUPPORT_FORM_URL;
+      if(id==="trackPage") trackThumbImg.src = TRACK_THUMB_URL;
     }
 
-    document.querySelectorAll(".nav-link[data-page]").forEach(link => {
-      const page = link.dataset.page;
-      if (page === "orderPage") return;
-      link.onclick = () => {
-        showPage(page);
-        if (page === "communityPage") padletFrame.src = PADLET_EMBED_URL;
-        if (page === "contactPage") supportFormFrame.src = SUPPORT_FORM_URL;
-        if (page === "returnsPage") returnsFormFrame.src = RETURN_FORM_URL;
-      };
+    document.querySelectorAll(".nav-link").forEach(btn=>{
+      btn.onclick = ()=>showPage(btn.dataset.page);
     });
 
-    navLogo.onclick = () => showPage("homePage");
-    navCheckout.onclick = () => {
-      updateOrderView();
-      showPage("orderPage");
-    };
-
-    /*********************
-      LOAD products.json
-    **********************/
+    /* LOAD JSON */
     async function loadProducts() {
       try {
         const res = await fetch("products.json");
         const data = await res.json();
 
-        allProducts = data.map(p => {
-          const st = p.statusText.toLowerCase();
+        allProducts = data.map(p=>{
           return {
             ...p,
-            inStock: st.includes("in stock")
+            inStock: p.statusText.toLowerCase().includes("in stock")
           };
         });
 
         applyFilters();
-      } catch (e) {
-        productGrid.innerHTML = `<p>Could not load products.json</p>`;
+      } catch(e) {
+        productGrid.innerHTML="<p>Error loading products.json</p>";
       }
     }
 
-    /*********************
-      FILTER + SEARCH
-    **********************/
+    /* FILTERS */
     function applyFilters() {
-      let list = [...allProducts];
+      let list=[...allProducts];
 
-      if (activeCategory !== "all")
-        list = list.filter(p => p.category === activeCategory);
+      if(activeCategory!=="all")
+        list=list.filter(p=>p.category===activeCategory);
 
-      if (searchQuery.trim())
-        list = list.filter(
-          p =>
-            p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            p.description.toLowerCase().includes(searchQuery.toLowerCase())
+      if(searchQuery.trim())
+        list=list.filter(
+          p=> p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              p.description.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
-      filteredProducts = list;
+      filteredProducts=list;
       renderProducts();
     }
 
-    searchBtn.onclick = () => {
-      searchQuery = searchInput.value;
+    searchBtn.onclick=()=>{
+      searchQuery=searchInput.value;
       applyFilters();
     };
 
-    searchInput.onkeyup = e => {
-      if (e.key === "Enter") {
-        searchQuery = searchInput.value;
+    searchInput.onkeyup=(e)=>{
+      if(e.key==="Enter"){
+        searchQuery=searchInput.value;
         applyFilters();
       }
     };
 
-    categoryBar.onclick = e => {
-      const btn = e.target.closest(".cat-btn");
-      if (!btn) return;
+    categoryBar.onclick=(e)=>{
+      const btn=e.target.closest(".cat-btn");
+      if(!btn) return;
 
-      activeCategory = btn.dataset.cat;
-      document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+      activeCategory=btn.dataset.cat;
+      document.querySelectorAll(".cat-btn").forEach(b=>b.classList.remove("active"));
       btn.classList.add("active");
 
-      productsTitle.textContent =
-        activeCategory === "all" ? "All products" : `Category: ${btn.textContent}`;
+      productsTitle.textContent=
+        activeCategory==="all" ? "All products" : "Category: "+btn.textContent;
 
       applyFilters();
     };
 
-    /*********************
-      RENDER PRODUCTS (FIXED ALIGNMENT)
-    **********************/
+    /* RENDER PRODUCTS */
     function renderProducts() {
-      productGrid.innerHTML = "";
+      productGrid.innerHTML="";
 
-      filteredProducts.forEach(p => {
-        const inStock = p.inStock;
-        const card = document.createElement("div");
-        card.className = "card";
+      filteredProducts.forEach(p=>{
+        const card=document.createElement("div");
+        card.className="card";
 
-        card.innerHTML = `
+        card.innerHTML=`
           <div class="card-img-wrap">
             ${p.image ? `<img src="${p.image}">` : ""}
           </div>
-
           <h3 class="card-title">${p.name}</h3>
           <div class="sku-small">SKU: ${p.id}</div>
           <div class="price">₹${p.price}</div>
           <div class="desc">${p.description}</div>
-          <div class="status ${inStock ? "in" : "out"}">
-            Status: ${p.statusText}
-          </div>
-
-          <button class="btn ${inStock ? "btn-primary" : "btn-disabled"}"
-            ${inStock ? "" : "disabled"}
+          <div class="status ${p.inStock?'in':'out'}">Status: ${p.statusText}</div>
+          <button class="btn ${p.inStock?'btn-primary':'btn-disabled'}"
+            ${p.inStock?'':'disabled'}
             onclick="startOrder('${p.id}')">
             Place Order
           </button>
         `;
+
         productGrid.appendChild(card);
       });
 
       resultCount.textContent =
-        filteredProducts.length === 0
-          ? "No products found."
-          : `${filteredProducts.length} product(s)`;
+        filteredProducts.length + " product(s)";
     }
 
-    /*********************
-      ORDER FLOW
-    **********************/
-    function startOrder(id) {
-      selectedProduct = allProducts.find(p => p.id === id);
-      updateOrderView();
+    /* ORDER */
+    function startOrder(id){
+      selectedProduct=allProducts.find(p=>p.id===id);
+      updateCheckout();
       showPage("orderPage");
     }
 
-    function updateOrderView() {
-      if (!selectedProduct) {
+    function updateCheckout(){
+      if(!selectedProduct){
         noProductMessage.classList.remove("hidden");
-        orderSkuBig.textContent = "SKU-XXXX";
         return;
       }
 
       noProductMessage.classList.add("hidden");
-      orderProductName.textContent = selectedProduct.name;
-      orderProductPrice.textContent = "₹" + selectedProduct.price;
-      orderProductDesc.textContent = selectedProduct.description;
-      orderSkuBig.textContent = selectedProduct.id;
+      orderProductName.textContent=selectedProduct.name;
+      orderProductPrice.textContent="₹"+selectedProduct.price;
+      orderProductDesc.textContent=selectedProduct.description;
+      orderSkuBig.textContent=selectedProduct.id;
     }
 
-    showFormBtn.onclick = () => {
-      if (!selectedProduct) return;
-      orderFormFrame.src = FORM_URL;
+    showFormBtn.onclick=()=>{
+      if(!selectedProduct) return;
+      orderFormFrame.src=FORM_URL;
       showPage("checkoutFormPage");
     };
 
-    /*********************
-      INIT
-    **********************/
-    function init() {
-      showPage("homePage");
-      padletFrame.src = PADLET_EMBED_URL;
-      trackThumbImg.src = TRACK_THUMB_URL;
-      returnsFormFrame.src = RETURN_FORM_URL;
-      supportFormFrame.src = SUPPORT_FORM_URL;
-      loadProducts();
-    }
-
-    init();
+    /* INIT */
+    loadProducts();
+    showPage("homePage");
   </script>
 </body>
 </html>
-
