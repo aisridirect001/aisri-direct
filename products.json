@@ -4,7 +4,7 @@
     "name": "Steel Water Bottle 1L",
     "price": 249,
     "category": "bottles",
-    "statusText": "In Stock",
+    "statusText": "Out of Stock",
     "description": "1L stainless steel water bottle, durable and leak-proof.",
     "image": ""
   },
@@ -36,3 +36,4 @@
     "image": ""
   }
 ]
+
