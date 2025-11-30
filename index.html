@@ -1,4 +1,281 @@
-      <!-- CHECKOUT STEP 1 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AISRI DIRECT - Online Orders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="icon"
+    type="image/png"
+    href="https://i.ibb.co/TBfsBjkr/Chat-GPT-Image-Nov-29-2025-08-47-21-PM.png"
+  />
+
+  <style>
+    /* RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background:#eaeded;
+      color:#111;
+      display:flex;
+      flex-direction:column;
+    }
+
+    a { text-decoration:none; color:inherit; }
+    .hidden { display:none !important; }
+
+    /* LAYOUT */
+    #page { display:flex; flex-direction:column; min-height:100vh; }
+    main { max-width:1150px; width:100%; margin:0 auto; padding:1rem 1rem 2rem; flex:1; }
+
+    /* TRICOLOUR BAR */
+    .tri-bar {
+      width:100%;
+      height:4px;
+      background: linear-gradient(to right,
+        #ff9933 0%, #ff9933 33.33%,
+        #ffffff 33.33%, #ffffff 66.66%,
+        #138808 66.66%, #138808 100%);
+    }
+
+    /* HEADER */
+    header {
+      background:#131921;
+      color:#fff;
+      padding:0.6rem 1rem;
+      border-bottom:2px solid #232f3e;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .logo {
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+      cursor:pointer;
+    }
+    .logo img { height:32px; border-radius:4px; }
+    .logo-title { font-weight:700; font-size:1.1rem; }
+    .logo-sub { font-size:0.75rem; color:#ddd; }
+
+    .nav-right {
+      display:flex;
+      gap:0.4rem;
+      flex-wrap:wrap;
+    }
+    .nav-link {
+      padding:0.35rem 0.7rem;
+      font-size:0.85rem;
+      border-radius:4px;
+      cursor:pointer;
+    }
+    .nav-link:hover { background:#232f3e; }
+
+    /* SEARCH BAR */
+    .search-bar-wrap {
+      width:100%;
+      background:#232f3e;
+      padding:0.4rem 1rem;
+      border-bottom:3px solid #ff9933;
+      display:flex;
+      justify-content:center;
+    }
+
+    .search-inner {
+      max-width:1150px;
+      width:100%;
+      display:flex;
+      gap:0.3rem;
+    }
+
+    .search-input {
+      flex:1;
+      padding:0.45rem 0.6rem;
+      font-size:0.85rem;
+      border-radius:4px 0 0 4px;
+      border:none;
+    }
+
+    .search-btn {
+      padding:0.45rem 0.8rem;
+      border:none;
+      background:#febd69;
+      font-size:0.85rem;
+      cursor:pointer;
+      font-weight:600;
+      border-radius:0 4px 4px 0;
+    }
+
+    .search-btn:hover { background:#f3a847; }
+
+    /* CATEGORY BAR */
+    .category-bar {
+      margin-top:1rem;
+      display:flex;
+      gap:0.5rem;
+      flex-wrap:wrap;
+    }
+
+    .cat-btn {
+      padding:0.35rem 0.9rem;
+      border-radius:999px;
+      border:1px solid #ccc;
+      background:#f3f3f3;
+      cursor:pointer;
+      font-size:0.8rem;
+    }
+    .cat-btn.active {
+      background:#ffd814;
+      border-color:#fcd200;
+    }
+
+    /* PRODUCT GRID */
+    .section-title { font-size:1.3rem; margin-bottom:0.35rem; }
+    .section-sub { font-size:0.85rem; color:#555; margin-bottom:0.75rem; }
+
+    .product-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+      gap:1rem;
+    }
+
+    /* PRODUCT CARD */
+    .card {
+      background:#fff;
+      border-radius:4px;
+      padding:0.75rem;
+      box-shadow:0 1px 3px rgba(0,0,0,0.15);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      height:100%;
+    }
+
+    .card-img-wrap {
+      width:100%;
+      height:140px;
+      background:#f9f9f9;
+      border:1px solid #eee;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:0.6rem;
+      overflow:hidden;
+    }
+
+    .card-img-wrap img {
+      max-height:100%;
+      object-fit:contain;
+      display:block;
+    }
+
+    .card-title { font-size:1rem; margin-bottom:0.15rem; }
+    .sku-small { font-size:0.75rem; color:#777; margin-bottom:0.25rem; }
+    .price { font-size:1rem; font-weight:700; color:#b12704; margin-bottom:0.25rem; }
+    .desc { font-size:0.85rem; color:#555; margin-bottom:0.35rem; }
+    .status { font-size:0.8rem; font-weight:600; margin-bottom:0.6rem; }
+    .status.in { color:#007600; }
+    .status.out { color:#b12704; }
+
+    .btn {
+      padding:0.5rem;
+      border-radius:4px;
+      cursor:pointer;
+      text-align:center;
+      font-size:0.9rem;
+      font-weight:600;
+      border:none;
+    }
+
+    .btn-primary { background:#ffd814; border:1px solid #fcd200; }
+    .btn-primary:hover { background:#f7ca00; }
+    .btn-disabled { background:#ddd; cursor:not-allowed; }
+
+    /* CHECKOUT PAGE */
+    .sku-big {
+      font-size:1.8rem;
+      font-weight:900;
+      margin:0.8rem 0;
+      text-align:center;
+    }
+
+    .box {
+      background:#fff;
+      border-radius:4px;
+      padding:1rem;
+      margin-bottom:1rem;
+      box-shadow:0 1px 3px rgba(0,0,0,0.15);
+    }
+
+    iframe { border:1px solid #ccc; border-radius:6px; }
+  </style>
+</head>
+
+<body>
+  <div id="page">
+    <div class="tri-bar"></div>
+
+    <header>
+      <div class="logo" id="navLogo">
+        <img src="https://i.ibb.co/TBfsBjkr/Chat-GPT-Image-Nov-29-2025-08-47-21-PM.png">
+        <div>
+          <div class="logo-title">AISRI DIRECT</div>
+          <div class="logo-sub">Direct. Fast. Simple.</div>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <div class="nav-link" data-page="homePage">Home</div>
+        <div class="nav-link" data-page="orderPage" id="navCheckout">Checkout</div>
+        <div class="nav-link" data-page="communityPage">Community</div>
+        <div class="nav-link" data-page="trackPage">Track Order</div>
+        <div class="nav-link" data-page="returnsPage">Returns</div>
+        <div class="nav-link" data-page="contactPage">Contact</div>
+        <div class="nav-link" data-page="adminPage">Admin</div>
+      </div>
+    </header>
+
+    <div class="search-bar-wrap">
+      <div class="search-inner">
+        <input id="searchInput" class="search-input" placeholder="Search AISRI DIRECT products..." />
+        <button id="searchBtn" class="search-btn">Search</button>
+      </div>
+    </div>
+
+    <main>
+
+      <!-- HOME PAGE -->
+      <section id="homePage">
+        <h1 class="section-title">Products</h1>
+        <p class="section-sub">
+          Amazon-style browsing with an Indian touch. Use categories and search to find what you need,
+          then click <strong>Place Order</strong> for a single-product UPI checkout.
+        </p>
+
+        <div class="category-bar" id="categoryBar">
+          <button class="cat-btn active" data-cat="all">All</button>
+          <button class="cat-btn" data-cat="home">Home & Kitchen</button>
+          <button class="cat-btn" data-cat="electronics">Electronics</button>
+          <button class="cat-btn" data-cat="fashion">Fashion</button>
+          <button class="cat-btn" data-cat="food">Food & Snacks</button>
+          <button class="cat-btn" data-cat="bottles">Bottles</button>
+          <button class="cat-btn" data-cat="boxes">Boxes / Tiffins</button>
+          <button class="cat-btn" data-cat="skincare">Skincare & Makeup</button>
+          <button class="cat-btn" data-cat="offers">Offers</button>
+        </div>
+
+        <div class="products-header">
+          <h2 id="productsTitle">All products</h2>
+          <span id="resultCount"></span>
+        </div>
+
+        <div id="productGrid" class="product-grid"></div>
+      </section>
+                <!-- CHECKOUT STEP 1 -->
       <section id="orderPage" class="hidden">
         <h1 class="section-title">Checkout – Step 1</h1>
         <p class="section-sub">
@@ -353,3 +630,4 @@
   </script>
 </body>
 </html>
+
