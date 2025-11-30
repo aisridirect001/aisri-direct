@@ -27,7 +27,25 @@
     "image": "https://via.placeholder.com/300x300?text=Lunch+Box"
   },
   {
+    "id": "1002",
+    "name": "3-Tier Stainless Lunch Box",
+    "price": 399,
+    "category": "boxes",
+    "statusText": "Out of Stock",
+    "description": "Stainless steel 3-tier lunch box with lockable lid.",
+    "image": "https://via.placeholder.com/300x300?text=Lunch+Box"
+  },
+  {
     "id": "1003",
+    "name": "3-Tier Stainless Lunch Box",
+    "price": 399,
+    "category": "boxes",
+    "statusText": "Out of Stock",
+    "description": "Stainless steel 3-tier lunch box with lockable lid.",
+    "image": "https://via.placeholder.com/300x300?text=Lunch+Box"
+  },
+  {
+    "id": "1004",
     "name": "LED Study Lamp",
     "price": 699,
     "category": "electronics",
@@ -36,4 +54,5 @@
     "image": ""
   }
 ]
+
 
