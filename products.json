@@ -1,58 +1,14 @@
 [
-  {
-    "id": "1000",
-    "name": "Steel Water Bottle 1L",
-    "price": 249,
-    "category": "bottles",
-    "statusText": "Out of Stock",
-    "description": "1L stainless steel water bottle, durable and leak-proof.",
-    "image": ""
-  },
-  {
-    "id": "1001",
-    "name": "Copper Water Bottle 1L",
-    "price": 599,
-    "category": "bottles",
-    "statusText": "In Stock",
-    "description": "Pure copper bottle for daily use, traditional and stylish.",
-    "image": "https://via.placeholder.com/300x300?text=Copper+Bottle"
-  },
-  {
-    "id": "1002",
-    "name": "3-Tier Stainless Lunch Box",
-    "price": 399,
-    "category": "boxes",
-    "statusText": "Out of Stock",
-    "description": "Stainless steel 3-tier lunch box with lockable lid.",
-    "image": "https://via.placeholder.com/300x300?text=Lunch+Box"
-  },
-  {
-    "id": "1002",
-    "name": "3-Tier Stainless Lunch Box",
-    "price": 399,
-    "category": "boxes",
-    "statusText": "Out of Stock",
-    "description": "Stainless steel 3-tier lunch box with lockable lid.",
-    "image": "https://via.placeholder.com/300x300?text=Lunch+Box"
-  },
-  {
-    "id": "1003",
-    "name": "3-Tier Stainless Lunch Box",
-    "price": 399,
-    "category": "boxes",
-    "statusText": "Out of Stock",
-    "description": "Stainless steel 3-tier lunch box with lockable lid.",
-    "image": "https://via.placeholder.com/300x300?text=Lunch+Box"
-  },
-  {
-    "id": "1004",
-    "name": "LED Study Lamp",
-    "price": 699,
-    "category": "electronics",
-    "statusText": "In Stock",
-    "description": "Energy-efficient LED lamp for students and home offices.",
-    "image": ""
-  }
+{
+  "id": "1000",
+  "name": "Stainless Steel Sipper Bottle",
+  "price": 290,
+  "category": "bottles",
+  "statusText": "In Stock",
+  "description": "Durable 750ml stainless steel sipper bottle. Keeps drinks fresh, leakproof, lightweight, and perfect for office, gym, travel, and daily use. Great value at ₹290!",
+  "image": "https://i.ibb.co/5X6D7sv7/waterbottle750mljpg.png"
+}
 ]
+
 
 
