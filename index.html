@@ -190,6 +190,25 @@
       font-size:0.85rem;
       margin-top:1rem;
     }
+    .fullscreen-icon {
+  position:absolute;
+  top:6px;
+  right:6px;
+  background:white;
+  border-radius:50%;
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 1px 4px rgba(0,0,0,0.25);
+  font-size:16px;
+  border:1px solid #ddd;
+}
+.card-img-wrap {
+  position:relative;
+}
   </style>
 </head>
 
@@ -509,22 +528,25 @@
         card.className = "card";
 
         card.innerHTML = `
-          <div class="card-img-wrap">
-            ${p.image ? `<img src="${p.image}" alt="${p.name}">` : ""}
-          </div>
-          <div class="card-title">${p.name}</div>
-          <div class="sku-small">SKU: ${p.id}</div>
-          <div class="price">₹${p.price}</div>
-          <div class="desc">${p.description}</div>
-          <div class="status ${p.inStock ? "in" : "out"}">${p.statusText}</div>
-          <button
-            class="btn ${p.inStock ? "btn-primary" : "btn-disabled"}"
-            ${p.inStock ? "" : "disabled"}
-            data-sku="${p.id}"
-          >
-            Place Order
-          </button>
-        `;
+    <div class="card-img-wrap">
+    ${p.image ? `<img src="${p.image}" alt="${p.name}">` : ""}
+    ${p.image ? `<div class="fullscreen-icon" onclick="window.open('${p.image}', '_blank')">⛶</div>` : ""}
+  </div>
+
+  <div class="card-title">${p.name}</div>
+  <div class="sku-small">SKU: ${p.id}</div>
+  <div class="price">₹${p.price}</div>
+  <div class="desc">${p.description}</div>
+  <div class="status ${p.inStock ? "in" : "out"}">${p.statusText}</div>
+
+  <button class="btn ${p.inStock ? "btn-primary" : "btn-disabled"}"
+    ${p.inStock ? "" : "disabled"}
+    data-sku="${p.id}"
+  >
+    Place Order
+  </button>
+`;
+
 
         const btn = card.querySelector("button");
         btn.addEventListener("click", () => {
@@ -575,6 +597,7 @@
   </script>
 </body>
 </html>
+
 
 
 
