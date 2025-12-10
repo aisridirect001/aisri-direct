@@ -294,6 +294,7 @@
           This code identifies your product in our system. Please write it down or take a screenshot.
         </p>
         <div id="orderSkuBig" class="sku-big">SKU-XXXX</div>
+        <div id="checkoutPriceNote" style="text-align:center;font-size:1rem;font-weight:600;margin-top:0.5rem;color:#b12704;"></div>
       </div>
 
       <div class="box">
@@ -589,7 +590,9 @@ CATEGORY VALUES (use in products.json):
         nameEl.textContent = "";
         priceEl.textContent = "";
         descEl.textContent = "";
-        skuEl.textContent = "SKU-XXXX";
+        skuEl.textContent = selectedProduct.id;
+        document.getElementById("checkoutPriceNote").innerHTML =
+        "Amount to Pay: <b>₹" + selectedProduct.price + "</b><br><span style='font-size:0.85rem;color:#555;'>To pay the exact amount, not anything less, nothing more.</span>";
         msgEl.style.display = "block";
         return;
       }
@@ -615,6 +618,7 @@ CATEGORY VALUES (use in products.json):
   </script>
 </body>
 </html>
+
 
 
 
