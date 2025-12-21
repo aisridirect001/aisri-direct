@@ -209,6 +209,7 @@
 .card-img-wrap {
   position:relative;
 }
+.hidden { display:none !important; }
   </style>
 </head>
 
@@ -336,19 +337,16 @@
     <!-- TRACK PAGE -->
     <section id="trackPage">
       <h1 class="section-title">Track Your Order</h1>
-      <p class="section-sub">
-        Track your shipment using an India Post consignment number. Click the button below to open
-        the official India Post tracking page.
-      </p>
-
       <div class="box">
-        <a
-          href="https://www.indiapost.gov.in/_layouts/15/DOP.Portal.Tracking/TrackConsignment.aspx"
-          target="_blank"
-        >
-          <center><button class="btn btn-primary">Open India Post Tracking</button></center>
-        </a>
-      </div>
+  <h3 style="margin-bottom:0.5rem;">Check Tracking Status (AISRI DIRECT)</h3>
+  <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+    <input id="trackInput" class="search-input" style="border-radius:6px; border:1px solid #ccc;"
+           placeholder="Enter your Tracking ID (Example: AB123456789IN)">
+    <button id="trackBtn" class="search-btn" style="border-radius:6px;">Check</button>
+  </div>
+
+  <div id="trackResult" style="margin-top:0.8rem; font-size:0.95rem; color:#333;"></div>
+</div>
     </section>
 
     <!-- RETURNS PAGE -->
@@ -384,6 +382,25 @@
 
     <!-- ADMIN PAGE -->
     <section id="adminPage">
+      <div id="adminLockBox" class="box">
+  <h3>Admin Login</h3>
+  <p style="color:#555;font-size:0.9rem;">Login required to view admin instructions.</p>
+
+  <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.6rem;">
+    <input id="adminUser" class="search-input" style="border-radius:6px;border:1px solid #ccc;"
+           placeholder="Username">
+    <input id="adminPass" type="password" class="search-input" style="border-radius:6px;border:1px solid #ccc;"
+           placeholder="Password">
+    <button id="adminLoginBtn" class="search-btn" style="border-radius:6px;">Login</button>
+  </div>
+
+  <div id="adminLoginMsg" style="margin-top:0.7rem;color:#b12704;font-weight:700;"></div>
+</div>
+
+<div id="adminPrivateContent" class="hidden">
+  <!-- your real admin content stays here -->
+</div>
+
       <h1 class="section-title">Admin – Manage Products</h1>
       <p class="section-sub">
         All products shown on the Home page come from <strong>products.json</strong>.
@@ -577,7 +594,49 @@ CATEGORY VALUES (use in products.json):
         grid.appendChild(card);
       });
     }
+    /************** TRACKING **************/
+    async function lookupTracking(trackingId) {
+  const out = document.getElementById("trackResult");
+  out.innerHTML = "Checking...";
 
+  try {
+    const res = await fetch("tracking.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("tracking.json not found");
+    const rows = await res.json();
+
+    const id = (trackingId || "").trim().toUpperCase();
+    const hit = rows.find(r => (r.trackingId || "").toUpperCase() === id);
+
+    if (!hit) {
+      out.innerHTML = `<span style="color:#b12704;font-weight:700;">Not found.</span>
+      <div style="margin-top:6px;color:#555;">If you just placed the order, please wait for us to update your tracking ID.</div>`;
+      return;
+    }
+
+    out.innerHTML = `
+      <div style="font-weight:700;margin-bottom:6px;">Tracking ID: ${hit.trackingId}</div>
+      <div><b>Status:</b> ${hit.status}</div>
+      <div><b>Courier:</b> ${hit.courier || "India Post"}</div>
+      <div><b>SKU:</b> ${hit.sku || "-"}</div>
+      <div><b>Last Update:</b> ${hit.lastUpdate || "-"}</div>
+      <div style="margin-top:6px;"><b>Notes:</b> ${hit.notes || "-"}</div>
+    `;
+  } catch (e) {
+    out.innerHTML = `<span style="color:#b12704;font-weight:700;">Error loading tracking updates.</span>
+    <div style="margin-top:6px;color:#555;">Make sure tracking.json exists in the same folder as index.html.</div>`;
+  }
+}
+
+// Hook buttons
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("trackBtn");
+  const input = document.getElementById("trackInput");
+  if (btn && input) {
+    btn.addEventListener("click", () => lookupTracking(input.value));
+    input.addEventListener("keyup", (e) => { if (e.key === "Enter") lookupTracking(input.value); });
+  }
+});
+    
     /************** CHECKOUT FLOW **************/
     function updateCheckout() {
       const nameEl = document.getElementById("orderProductName");
@@ -609,7 +668,40 @@ CATEGORY VALUES (use in products.json):
       document.getElementById("orderFormFrame").src = FORM_URL;
       activatePage("checkoutFormPage");
     });
+    /******** ADMIN SECURITY ********/
 
+  // ⚠️ UI-only protection (not real backend security)
+  const ADMIN_USERNAME = "aisridirect001";
+  const ADMIN_PASSWORD = "admin001";
+
+  function setAdminAuthed(isAuthed) {
+    localStorage.setItem("aisri_admin_authed", isAuthed ? "1" : "0");
+    document.getElementById("adminLockBox")?.classList.toggle("hidden", isAuthed);
+    document.getElementById("adminPrivateContent")?.classList.toggle("hidden", !isAuthed);
+  }
+
+  function initAdminLock() {
+    const authed = localStorage.getItem("aisri_admin_authed") === "1";
+    setAdminAuthed(authed);
+
+    document.getElementById("adminLoginBtn")?.addEventListener("click", () => {
+      const u = document.getElementById("adminUser").value.trim();
+      const p = document.getElementById("adminPass").value.trim();
+
+      if (u === ADMIN_USERNAME && p === ADMIN_PASSWORD) {
+        setAdminAuthed(true);
+      } else {
+        document.getElementById("adminLoginMsg").textContent =
+          "Invalid username or password";
+      }
+    });
+  }
+
+  // 🔑 Run admin security when page loads
+  document.addEventListener("DOMContentLoaded", initAdminLock);
+
+  /* existing code below (if any) */
+</script>
     /************** INIT **************/
     (function init() {
       loadProducts();
@@ -618,6 +710,7 @@ CATEGORY VALUES (use in products.json):
   </script>
 </body>
 </html>
+
 
 
 
