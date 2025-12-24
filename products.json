@@ -4,7 +4,7 @@
   "name": "Dr. Siva's Natural Foods - ABC Vital Booster (400g)",
   "price": 400,
   "category": "food",
-  "statusText": "Out of Stock",
+  "statusText": "In Stock",
   "description": "Dr. Siva's ABC Vital Booster is a 100% natural apple, beetroot, and carrot health mix with nuts, made for daily nutrition, energy and overall wellness.",
   "images": [
     "https://iili.io/fGc4M67.png",
@@ -13,6 +13,7 @@
   ]
 }
 ]
+
 
 
 
