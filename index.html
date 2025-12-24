@@ -64,6 +64,23 @@
       background:#fff;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;
       cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.25);font-size:16px
     }
+    .img-nav {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(0,0,0,0.6);
+      color:white;
+      border:none;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:16px;
+    }
+
+    .img-prev { left:6px; }
+    .img-next { right:6px; }
+  
     .card-title{font-size:1rem;font-weight:900;margin-bottom:.2rem}
     .sku-small{font-size:.75rem;color:#777;margin-bottom:.3rem}
     .price{color:#b12704;font-weight:900;margin-bottom:.3rem}
@@ -292,21 +309,22 @@
 <pre style="white-space:pre-wrap;line-height:1.35;margin-top:.6rem;">
 ✅ products.json (Example)
 
-[
-  {
-    "id": "1001",
-    "name": "Steel Water Bottle 1L",
-    "price": 249,
-    "category": "bottles",
-    "statusText": "In Stock",
-    "description": "1L stainless steel bottle for daily use.",
-    "image": "https://example.com/bottle.png"
-  }
-]
+{
+  "id": "1001",
+  "name": "Steel Water Bottle",
+  "price": 249,
+  "category": "bottles",
+  "statusText": "In Stock",
+  "description": "Stainless steel bottle",
+  "images": [
+    "https://example.com/bottle1.jpg",
+    "https://example.com/bottle2.jpg",
+    "https://example.com/bottle3.jpg"
+  ]
+}
 
 ✅ tracking.json (Example)
 
-[
   {
     "trackingId": "AB123456789IN",
     "status": "Shipped",
@@ -314,7 +332,6 @@
     "notes": "Dispatched from Chennai.",
     "sku": "1001"
   }
-]
 
 ✅ Category Values (use exactly)
 "bottles", "boxes", "electronics", "fashion", "food", "skincare", "offers"
@@ -462,10 +479,22 @@ function renderProducts() {
     card.className = "card";
 
     card.innerHTML = `
-      <div class="card-img-wrap">
-        ${p.image ? `<img src="${p.image}" alt="${p.name}">` : ""}
-        ${p.image ? `<div class="fullscreen-icon" title="Open image" onclick="window.open('${p.image}','_blank')">⛶</div>` : ""}
-      </div>
+        <div class="card-img-wrap">
+  <img id="img-${p.id}" src="${p.images && p.images.length ? p.images[0] : ''}">
+
+  ${p.images && p.images.length > 1 ? `
+    <button class="img-nav img-prev" onclick="changeImg('${p.id}', -1)">‹</button>
+    <button class="img-nav img-next" onclick="changeImg('${p.id}', 1)">›</button>
+  ` : ''}
+
+  ${p.images && p.images.length ? `
+    <div class="fullscreen-icon"
+         onclick="window.open(document.getElementById('img-${p.id}').src,'_blank')">
+      ⛶
+    </div>
+  ` : ''}
+</div>
+
 
       <div class="card-title">${p.name}</div>
       <div class="sku-small">SKU: ${p.id}</div>
@@ -514,9 +543,11 @@ function updateCheckout() {
   }
 
   msgEl.style.display = "none";
-  imgWrap.innerHTML = selectedProduct.image
-    ? `<img src="${selectedProduct.image}" alt="${selectedProduct.name}">`
+  imgWrap.innerHTML =
+  selectedProduct.images && selectedProduct.images.length
+    ? `<img src="${selectedProduct.images[0]}">`
     : "";
+
 
   nameEl.textContent = selectedProduct.name;
   priceEl.textContent = "₹" + selectedProduct.price;
@@ -593,6 +624,21 @@ function initAdminLock() {
   });
 }
 
+  const imgIndexMap = {};
+
+function changeImg(productId, direction) {
+  const product = allProducts.find(p => p.id === productId);
+  if (!product || !product.images || product.images.length === 0) return;
+
+  if (!(productId in imgIndexMap)) imgIndexMap[productId] = 0;
+
+  imgIndexMap[productId] =
+    (imgIndexMap[productId] + direction + product.images.length) % product.images.length;
+
+  const imgEl = document.getElementById(`img-${productId}`);
+  if (imgEl) imgEl.src = product.images[imgIndexMap[productId]];
+}
+
 /************** INIT **************/
 (function init() {
   loadProducts();
@@ -603,6 +649,7 @@ function initAdminLock() {
 
 </body>
 </html>
+
 
 
 
