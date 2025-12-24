@@ -107,6 +107,13 @@
     iframe{width:100%;border:1px solid #ccc;border-radius:6px}
 
     footer{background:#131921;color:#ccc;text-align:center;padding:1.1rem;font-size:.85rem;margin-top:1rem}
+
+    .img-nav {
+  pointer-events: auto;
+}
+.card-img-wrap img {
+  pointer-events: none;
+}
   </style>
 </head>
 
@@ -509,11 +516,20 @@ function renderProducts() {
       </button>
     `;
 
-    card.querySelector("button").addEventListener("click", () => {
-      selectedProduct = p;
-      updateCheckout();
-      activatePage("orderPage");
-    });
+      card.querySelector("button").addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation(); // 🔴 THIS IS THE KEY FIX
+
+  selectedProduct = p;
+
+  // Force checkout update first
+  updateCheckout();
+
+  // Force page change
+  setTimeout(() => {
+    activatePage("orderPage");
+  }, 0);
+});
 
     grid.appendChild(card);
   });
@@ -651,6 +667,7 @@ function changeImg(productId, direction) {
 
 </body>
 </html>
+
 
 
 
