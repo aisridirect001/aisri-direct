@@ -512,12 +512,13 @@ ${p.images && p.images.length ? `
       <div class="desc">${p.description}</div>
       <div class="status ${p.inStock ? "in" : "out"}">${p.statusText}</div>
 
-      <button class="btn ${p.inStock ? "btn-primary" : "btn-disabled"}" ${p.inStock ? "" : "disabled"}>
-        Place Order
+      <button class="btn place-order-btn ${p.inStock ? "btn-primary" : "btn-disabled"}" ${p.inStock ? "" : "disabled"} type="button">
+      Place Order
       </button>
+
     `;
 
-      card.querySelector("button").addEventListener("click", (e) => {
+      card.querySelector(".place-order-btn").addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation(); // 🔴 THIS IS THE KEY FIX
 
@@ -691,6 +692,7 @@ function changeImg(productId, direction) {
 
 </body>
 </html>
+
 
 
 
