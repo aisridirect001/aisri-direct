@@ -1,14 +1,19 @@
 [
 {
   "id": "1001",
-  "name": "Stainless Steel Sipper Bottle",
-  "price": 290,
+  "name": "Steel Water Bottle",
+  "price": 249,
   "category": "bottles",
   "statusText": "In Stock",
-  "description": "Durable 750ml stainless steel sipper bottle. Keeps drinks fresh, leakproof, lightweight, and perfect for office, gym, travel, and daily use. Great value at ₹290!",
-  "image": "https://i.ibb.co/5X6D7sv7/waterbottle750mljpg.png"
+  "description": "Stainless steel bottle",
+  "images": [
+    "https://i.ibb.co/5X6D7sv7/waterbottle750mljpg.png",
+    "https://i.ibb.co/TBfsBjkr/Chat-GPT-Image-Nov-29-2025-08-47-21-PM.png",
+    ""
+  ]
 }
 ]
+
 
 
 
