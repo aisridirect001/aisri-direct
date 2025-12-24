@@ -414,15 +414,17 @@ async function loadProducts() {
     const data = await res.json();
 
     allProducts = (Array.isArray(data) ? data : []).map(p => ({
-      id: String(p.id ?? "").trim(),
-      name: String(p.name ?? "").trim(),
-      price: Number(p.price ?? 0),
-      category: String(p.category ?? "all").trim().toLowerCase(),
-      statusText: String(p.statusText ?? "Out of Stock").trim(),
-      description: String(p.description ?? "").trim(),
-      image: String(p.image ?? "").trim(),
-      inStock: String(p.statusText ?? "").toLowerCase().includes("in stock")
-    }));
+  id: String(p.id ?? "").trim(),
+  name: String(p.name ?? "").trim(),
+  price: Number(p.price ?? 0),
+  category: String(p.category ?? "all").trim().toLowerCase(),
+  statusText: String(p.statusText ?? "Out of Stock").trim(),
+  description: String(p.description ?? "").trim(),
+  images: Array.isArray(p.images)
+    ? p.images.map(x => String(x).trim()).filter(Boolean)
+    : (p.image ? [String(p.image).trim()] : []),
+  inStock: String(p.statusText ?? "").toLowerCase().includes("in stock")
+}));
 
     applyFilters();
   } catch (err) {
@@ -649,6 +651,7 @@ function changeImg(productId, direction) {
 
 </body>
 </html>
+
 
 
 
