@@ -1,7 +1,7 @@
 [
 {
   "id": "1001",
-  "name": "Dr. Siva's Natural Foods - ABC Vital Booster (250g)",
+  "name": "ABC Vital Booster (250g)",
   "price": 400,
   "category": "food",
   "statusText": "In Stock",
@@ -14,7 +14,7 @@
 },
 {
   "id": "1002",
-  "name": "Dr. Siva's Natural Foods - Hemo Immuno Booster (250g)",
+  "name": "Hemo Immuno Booster (250g)",
   "price": 400,
   "category": "food",
   "statusText": "Out of Stock",
@@ -26,6 +26,7 @@
   ]
 }
 ]
+
 
 
 
