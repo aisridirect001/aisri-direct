@@ -1,7 +1,7 @@
 [
 {
   "id": "1001",
-  "name": "Dr. Siva's Natural Foods - ABC Vital Booster (400g)",
+  "name": "Dr. Siva's Natural Foods - ABC Vital Booster (250g)",
   "price": 400,
   "category": "food",
   "statusText": "In Stock",
@@ -12,7 +12,21 @@
     ""
   ]
 }
+{
+  "id": "1002",
+  "name": "Dr. Siva's Natural Foods - Hemo Immuno Booster (250g)",
+  "price": 400,
+  "category": "food",
+  "statusText": "Out of Stock",
+  "description": "Dr. Siva's Hemo Immuno Booster is a beetroot-based natural health drink with nuts and spices, offering iron-rich nutrition as a healthy daily beverage.",
+  "images": [
+    "https://iili.io/fGEzbpV.md.png",
+    "https://iili.io/fG1tvJR.png",
+    ""
+  ]
+}
 ]
+
 
 
 
