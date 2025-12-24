@@ -114,6 +114,9 @@
 .card-img-wrap img {
   pointer-events: none;
 }
+.fullscreen-icon {
+  pointer-events: auto;
+}
   </style>
 </head>
 
@@ -491,17 +494,15 @@ function renderProducts() {
         <div class="card-img-wrap">
   <img id="img-${p.id}" src="${p.images && p.images.length ? p.images[0] : ''}">
 
-  ${p.images && p.images.length > 1 ? `
-    <button class="img-nav img-prev" onclick="changeImg('${p.id}', -1)">‹</button>
-    <button class="img-nav img-next" onclick="changeImg('${p.id}', 1)">›</button>
-  ` : ''}
+      ${p.images && p.images.length > 1 ? `
+  <button class="img-nav img-prev" data-sku="${p.id}" data-dir="-1" type="button">‹</button>
+  <button class="img-nav img-next" data-sku="${p.id}" data-dir="1" type="button">›</button>
+` : ''}
 
-  ${p.images && p.images.length ? `
-    <div class="fullscreen-icon"
-         onclick="window.open(document.getElementById('img-${p.id}').src,'_blank')">
-      ⛶
-    </div>
-  ` : ''}
+${p.images && p.images.length ? `
+  <button class="fullscreen-icon" data-full="${p.id}" type="button">⛶</button>
+` : ''}
+
 </div>
 
 
@@ -530,6 +531,29 @@ function renderProducts() {
     activatePage("orderPage");
   }, 0);
 });
+    // Handle image arrows safely
+card.querySelectorAll(".img-nav").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const sku = btn.getAttribute("data-sku");
+    const dir = Number(btn.getAttribute("data-dir"));
+    changeImg(sku, dir);
+  });
+});
+
+// Handle fullscreen button safely
+const fullBtn = card.querySelector(".fullscreen-icon");
+if (fullBtn) {
+  fullBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const sku = fullBtn.getAttribute("data-full");
+    const img = document.getElementById(`img-${sku}`);
+    if (img && img.src) window.open(img.src, "_blank");
+  });
+}
+
 
     grid.appendChild(card);
   });
@@ -667,6 +691,7 @@ function changeImg(productId, direction) {
 
 </body>
 </html>
+
 
 
 
